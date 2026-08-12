@@ -15,9 +15,26 @@ def initial_display():
 def main():
     is_on = True
     while is_on:
+        
         user_answer = initial_display()
-        print(f"You selected: {user_answer}")
+        
+        if user_answer == "1":
+            print("Add Expense")
+        elif user_answer == "2":
+            print("View Expenses")
+        elif user_answer == "3":
+            print("Delete Expense")
+        elif user_answer == "4":
+            print("Show Total")
+        elif user_answer == "5":
+            print("Goodbye")
+            is_on = False
+        else:
+            print("Please choose a valid option!")
+    
+        
     
      
 if __name__ == "__main__":
     main()
+    
