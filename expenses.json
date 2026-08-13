@@ -1,8 +1,20 @@
 [
     {
-        "amount": "2000",
+        "amount": "250000",
         "category": "food",
         "description": "lunch",
+        "date": "2026-08-10"
+    },
+    {
+        "amount": "120000",
+        "category": "transport",
+        "description": "taxi",
+        "date": "2026-08-11"
+    },
+    {
+        "amount": "450000",
+        "category": "Shopping",
+        "description": "T-shirt",
         "date": "2026-08-12"
     }
 ]

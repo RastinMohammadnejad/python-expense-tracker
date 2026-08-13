@@ -64,7 +64,44 @@ def view_expenses():
         print(f"Date: {expense['date']}")
         print("------------------------------")
         
-   
+def delete_expense():
+    try:
+        with open("expenses.json", "r") as file:
+            expenses = json.load(file)
+    except FileNotFoundError:
+        print("No expenses found.")
+        return
+
+    if not expenses:
+        print("No expenses found.")
+        return
+
+    for index, expense in enumerate(expenses, start=1):
+        print(
+            f"{index}. {expense['category']} - "
+            f"{expense['amount']} - "
+            f"{expense['description']}"
+        )
+
+    choice = input("Choose expense to delete: ")
+
+    if not choice.isdigit():
+        print("Please enter a valid number.")
+        return
+
+    choice = int(choice)
+
+    if choice < 1 or choice > len(expenses):
+        print("Expense not found.")
+        return
+
+    expenses.pop(choice - 1)
+
+    with open("expenses.json", "w") as file:
+        json.dump(expenses, file, indent=4)
+
+    print("Expense deleted successfully!")
+
 def main():
     is_on = True
     while is_on:
@@ -73,10 +110,13 @@ def main():
         
         if user_answer == "1":
             add_expense()
+            
         elif user_answer == "2":
             view_expenses()
+            
         elif user_answer == "3":
-            print("Delete Expense")
+            delete_expense()
+            
         elif user_answer == "4":
             print("Show Total")
         elif user_answer == "5":
