@@ -1,5 +1,16 @@
 import json
 
+def save_expenses(expenses):
+    with open("expenses.json", "w") as file:
+        json.dump(expenses, file, indent=4)
+        
+def load_expenses():
+    try:
+        with open("expenses.json", "r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return []
+    
 def initial_display():
     user_option = input("""
 ==============================
@@ -27,27 +38,18 @@ def add_expense():
         "date": date
     }
 
-    try:
-        with open("expenses.json", "r") as file:
-            expenses = json.load(file)
-    except FileNotFoundError:
-        expenses = []
+    expenses = load_expenses()
 
     expenses.append(expense)
 
-    with open("expenses.json", "w") as file:
-        json.dump(expenses, file, indent=4)
+    save_expenses(expenses)
 
     print("Expense saved successfully!")
 
 def view_expenses():
-    try:
-        with open("expenses.json", "r") as file:
-            expenses = json.load(file)
-    except FileNotFoundError:
-        print("No expenses found.")
-        return
-
+    
+    expenses = load_expenses()
+    
     if not expenses:
         print("No expenses found.")
         return
@@ -65,12 +67,8 @@ def view_expenses():
         print("------------------------------")
         
 def delete_expense():
-    try:
-        with open("expenses.json", "r") as file:
-            expenses = json.load(file)
-    except FileNotFoundError:
-        print("No expenses found.")
-        return
+    
+    expenses = load_expenses()
 
     if not expenses:
         print("No expenses found.")
@@ -97,18 +95,13 @@ def delete_expense():
 
     expenses.pop(choice - 1)
 
-    with open("expenses.json", "w") as file:
-        json.dump(expenses, file, indent=4)
+    save_expenses(expenses)
 
     print("Expense deleted successfully!")
 
 def show_total():
-    try:
-        with open("expenses.json", "r") as file:
-            expenses = json.load(file)
-    except FileNotFoundError:
-        print("No expenses found.")
-        return
+    
+    expenses = load_expenses()
 
     if not expenses:
         print("No expenses found.")
