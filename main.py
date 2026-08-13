@@ -14,8 +14,6 @@ def initial_display():
     Choose an option:""")
     return user_option
 
-
-
 def add_expense():
     amount = input("Amount: ")
     category = input("Category: ")
@@ -42,7 +40,31 @@ def add_expense():
 
     print("Expense saved successfully!")
 
-    
+def view_expenses():
+    try:
+        with open("expenses.json", "r") as file:
+            expenses = json.load(file)
+    except FileNotFoundError:
+        print("No expenses found.")
+        return
+
+    if not expenses:
+        print("No expenses found.")
+        return
+
+    print("\n==============================")
+    print("        Your Expenses")
+    print("==============================")
+
+    for index, expense in enumerate(expenses, start=1):
+        print(f"\nExpense #{index}")
+        print(f"Category: {expense['category']}")
+        print(f"Amount: {expense['amount']}")
+        print(f"Description: {expense['description']}")
+        print(f"Date: {expense['date']}")
+        print("------------------------------")
+        
+   
 def main():
     is_on = True
     while is_on:
@@ -52,7 +74,7 @@ def main():
         if user_answer == "1":
             add_expense()
         elif user_answer == "2":
-            print("View Expenses")
+            view_expenses()
         elif user_answer == "3":
             print("Delete Expense")
         elif user_answer == "4":
