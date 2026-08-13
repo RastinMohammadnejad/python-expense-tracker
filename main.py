@@ -102,6 +102,25 @@ def delete_expense():
 
     print("Expense deleted successfully!")
 
+def show_total():
+    try:
+        with open("expenses.json", "r") as file:
+            expenses = json.load(file)
+    except FileNotFoundError:
+        print("No expenses found.")
+        return
+
+    if not expenses:
+        print("No expenses found.")
+        return
+
+    total = 0
+
+    for expense in expenses:
+        total += float(expense["amount"])
+
+    print(f"Total Expenses: {total}")
+    
 def main():
     is_on = True
     while is_on:
@@ -118,7 +137,8 @@ def main():
             delete_expense()
             
         elif user_answer == "4":
-            print("Show Total")
+            show_total()
+            
         elif user_answer == "5":
             print("Goodbye")
             is_on = False
